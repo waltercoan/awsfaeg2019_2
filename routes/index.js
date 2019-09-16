@@ -8,5 +8,8 @@ var indexController = new IndexController();
 router.get('/', function(req, res, next) {
     indexController.index(req,res,next);
 });
+router.post('/', function(req, res, next) {
+    indexController.search(req,res,next);
+});
 
 module.exports = router;
