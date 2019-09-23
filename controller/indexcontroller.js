@@ -5,7 +5,7 @@ class IndexController{
     async index(req,res,next){
         var listProduct  = await productService.getAll();
         //console.log(JSON.stringify(listProduct, null, 4));
-        res.render('index2', { listProduct: listProduct });
+        res.render('index/index2', { listProduct: listProduct });
     }
     
     async search(req,res,next){
@@ -16,7 +16,7 @@ class IndexController{
         }else{
             listProduct  = await productService.getAllBySearch(search);
         }
-        res.render('index2', { listProduct: listProduct });
+        res.render('index/index2', { listProduct: listProduct });
     }
 }
 module.exports = IndexController;

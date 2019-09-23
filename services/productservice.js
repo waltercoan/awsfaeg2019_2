@@ -8,8 +8,18 @@ var DynamoDB = require('aws-sdk/clients/dynamodb');
 const client = new DynamoDB({region: 'us-east-2'});
 const mapper = new DataMapper({client});
 const Product = require("../models/product");
+const uuidv4 = require('uuid/v4');
 
 class ProductService{
+    async save(product){
+        if(product.id == null || product.id === ""){
+            product.id = uuidv4();
+        }
+        mapper.put({item: product}).then(() => {
+            return product;
+        });
+    }
+    
     async getAllBySearch(search){
         var list = [];
         var result = await mapper.scan(Product,{limit:5, filter: {
