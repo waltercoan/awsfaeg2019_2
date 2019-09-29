@@ -7,14 +7,19 @@ class ProductController{
         res.render('product/form');
     }
     async save(req,res,next){
-        var product = new Product();
-        product.name = req.body.name;
-        product.description = req.body.description;
-        product.price = parseFloat(req.body.price);
+        const file = req.body.imageUpload;
+        productService.uploadImageS3(req.files.imageUpload).then(newfilename => {
+            console.log(newfilename);
+            var product = new Product();
+            product.name = req.body.name;
+            product.description = req.body.description;
+            product.price = parseFloat(req.body.price);
+            product.filename = newfilename;
+            productService.save(product);
+            
+            res.redirect('/');
+        });
         
-        productService.save(product);
-        
-        res.redirect('/');
     }
 }
 module.exports = ProductController;

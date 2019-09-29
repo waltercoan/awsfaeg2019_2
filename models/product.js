@@ -16,7 +16,9 @@ Object.defineProperties(Product.prototype, {
             },
             description: {type: 'String'},
             name: {type: 'String'},
-            price: {type: 'Number'}
+            price: {type: 'Number'},
+            filename: {type: 'String'},
+            urls3: {type: 'String'}
         },
     },
 });
