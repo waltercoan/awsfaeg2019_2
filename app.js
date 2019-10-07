@@ -9,6 +9,11 @@ const fileUpload = require('express-fileupload');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var productRouter = require('./routes/product');
+var shoppingcarRouter = require('./routes/shoppingcar');
+
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
+
 
 var app = express();
 
@@ -28,9 +33,17 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(cookieParser());
+app.use(session({
+    secret: 'wV95QY67vRxWtDOQJO0194NUJdl5zYam', // just a long random string
+    resave: false,
+    saveUninitialized: true
+}));
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/product', productRouter);
+app.use('/shoppingcar', shoppingcarRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
